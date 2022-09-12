@@ -47,10 +47,7 @@ window.onload = () => {
     document.addEventListener('keyup', changeSnakeDirection);
 
     //restart the game on canvas click
-    board.addEventListener('click', () => {
-        isGameOver = false;
-        score = 0;
-    });
+    restartGame();
 
     placeFood();
 
@@ -69,7 +66,7 @@ function update() {
 
         createOrUpdateScore(`Score: ${score}`, board.width / 2, board.height / 2 + 25, 'center');
 
-        createOrUpdateScore(`Click to Start Again`, (cols * cellSize) / 2, board.height - 50, 'center');
+        createOrUpdateScore(`Click or Press ENTER to Start Again`, (cols * cellSize) / 2, board.height - 50, 'center');
 
         return;
     }
@@ -171,4 +168,18 @@ function gameOver() {
     snakeY = 0;
     velocityX = 1;
     velocityY = 0;
+}
+
+
+function restartGame() {
+    board.addEventListener('click', () => {
+        isGameOver = false;
+        score = 0;
+    });
+    document.addEventListener('keyup', e => {
+        if (e.code === 'Enter') {
+            isGameOver = false;
+            score = 0;
+        }
+    })
 }
